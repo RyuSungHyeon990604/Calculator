@@ -42,7 +42,8 @@ public class App {
                 //사칙연산 기호(➕,➖,✖️,➗)를 입력받기
                 System.out.print("사칙연산 기호(+,-,*,/)를 입력 해주세요.");
                 op = OperatorType.getOperatorType(sc.next().charAt(0));
-                res = calc.calculate(num1,num2,op).doubleValue();
+                calc.setOperation(op);
+                res = calc.calculate(num1,num2);
 
                 System.out.printf("%.1f %c %.1f = %.3f\n",num1, op.getLabel() ,num2, res);
             }catch (Exception e) {

@@ -1,21 +1,29 @@
 package com.example.calculator.LV3;
 
+
+import com.example.calculator.LV3.operation.Operation;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Stream;
 
 public  class ArithmeticCalculator<T extends Number> {
     //App 클래스의 main 메서드에서 Calculator 클래스의 연산 결과를 저장하고 있는 컬렉션 필드에 직접 접근하지 못하도록 수정 (캡슐화)
     private Queue<T> results = null;
+    private Operation operation = null;
     public ArithmeticCalculator() {
         results = new LinkedList<T>();
     }
     //사칙연산을 수행한 후, 결과값을 반환하는 메서드 구현
-    public T calculate(T num1, T num2, OperatorType op){
+    public T calculate(T num1, T num2){
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
-        return (T) Double.valueOf(op.calc(num1.doubleValue(), num2.doubleValue()));
+        return (T) Double.valueOf(operation.calculate(num1.doubleValue(), num2.doubleValue()));
     }
+    //operation
+    public void setOperation(OperatorType op) {
+        this.operation = op.getOperation();
+    }
+
     //간접 접근을 통해 필드에 접근하여 가져올 수 있도록 구현합니다
     public Queue<T> getResults() {
         return results;

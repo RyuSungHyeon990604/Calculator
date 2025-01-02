@@ -30,8 +30,8 @@ public enum OperatorType {
         return label;
     }
 
-    public double calc(double a, double b){
-        return operation.calculate(a,b);
+    public Operation getOperation(){
+        return operation;
     }
 
     public static OperatorType getOperatorType(char op) {
