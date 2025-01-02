@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        long num1 =0 ,num2 = 0;
+        int num1 =0 ,num2 = 0;
         char op = ' ';
         String more = "go";
 
@@ -13,16 +13,16 @@ public class App {
         while(!more.equals("exit")) {
             //양의 정수(0 포함)를 입력받기
             System.out.print("첫 번째 숫자를 입력하세요 [양의 정수(0 포함)] : ");
-            num1 = sc.nextLong();
+            num1 = sc.nextInt();
             while(num1 < 0) {
                 System.out.print("양의 정수(0 포함)를 입력해주세요 : ");
-                num1 = sc.nextLong();
+                num1 = sc.nextInt();
             }
             System.out.print("두 번째 숫자를 입력하세요 [양의 정수(0 포함)] : ");
-            num2 = sc.nextLong();
+            num2 = sc.nextInt();
             while(num2 < 0) {
                 System.out.print("양의 정수(0 포함)를 입력해주세요 : ");
-                num2 = sc.nextLong();
+                num2 = sc.nextInt();
             }
             //사칙연산 기호(➕,➖,✖️,➗)를 입력받기
             System.out.print("사칙연산 기호(+,-,*,/)를 입력 해주세요.");
@@ -45,7 +45,7 @@ public class App {
                         System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다\n");
                         continue;
                     }
-                    System.out.printf("%d / %d = %.2f\n",num1 ,num2, (double)num1 / num2);
+                    System.out.printf("%d / %d = %d\n",num1 ,num2, (double)num1 / num2);
                     break;
                 default:
                     System.out.println("올바른 기호를 입력해주세요");
