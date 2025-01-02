@@ -4,10 +4,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Calculator {
+    //App 클래스의 main 메서드에서 Calculator 클래스의 연산 결과를 저장하고 있는 컬렉션 필드에 직접 접근하지 못하도록 수정 (캡슐화)
     private Queue<Integer> results = null;
     public Calculator() {
         results = new LinkedList<Integer>();
     }
+    //사칙연산을 수행한 후, 결과값을 반환하는 메서드 구현
     public int calculate(int num1, int num2, char op) {
         int res = 0;
         switch (op) {
