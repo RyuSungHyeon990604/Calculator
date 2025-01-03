@@ -7,10 +7,9 @@ public class App {
         Scanner sc = new Scanner(System.in);
         int num1 =0 ,num2 = 0;
         char op = ' ';
-        String more = "go";
 
         //반복문을 사용하되, 반복의 종료를 알려주는 “exit” 문자열을 입력하기 전까지 무한으로 계산을 진행할 수 있도록 소스 코드를 수정하기
-        while(!more.equals("exit")) {
+        do {
             //양의 정수(0 포함)를 입력받기
             System.out.print("첫 번째 숫자를 입력하세요 [양의 정수(0 포함)] : ");
             num1 = sc.nextInt();
@@ -45,15 +44,14 @@ public class App {
                         System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다\n");
                         continue;
                     }
-                    System.out.printf("%d / %d = %d\n",num1 ,num2, (double)num1 / num2);
+                    System.out.printf("%d / %d = %d\n",num1 ,num2, num1 / num2);
                     break;
                 default:
                     System.out.println("올바른 기호를 입력해주세요");
             }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-            more = sc.next();
-        }
+        }while(!sc.next().equals("exit"));
 
     }
 }
