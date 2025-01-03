@@ -2,6 +2,7 @@ package com.example.calculator.LV3;
 
 import com.example.calculator.Validator;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,20 +22,20 @@ public class App {
             String input="";
             //숫자 입력받기
             System.out.print("첫 번째 숫자를 입력하세요 : ");
-            input = sc.nextLine();
+            input = sc.next();
             while(!v.isNumber(input)) {
                 System.out.println("숫자를 입력해주세요");
                 System.out.print("첫 번째 숫자를 입력하세요 : ");
-                input = sc.nextLine();
+                input = sc.next();
             }
             num1 = Double.parseDouble(input);
 
             System.out.print("두 번째 숫자를 입력하세요 : ");
-            input = sc.nextLine();
+            input = sc.next();
             while(!v.isNumber(input)) {
                 System.out.println("숫자를 입력해주세요");
                 System.out.print("두 번째 숫자를 입력하세요 : ");
-                input = sc.nextLine();
+                input = sc.next();
             }
             num2 = Double.parseDouble(input);
 
@@ -42,7 +43,7 @@ public class App {
                 //사칙연산 기호(➕,➖,✖️,➗)를 입력받기
                 System.out.print("사칙연산 기호(+,-,*,/)를 입력 해주세요.");
                 op = OperatorType.getOperatorType(sc.next().charAt(0));
-                calc.setOperation(op);
+                calc.setOperation(op.getOperation());
                 res = calc.calculate(num1,num2);
 
                 System.out.printf("%.1f %c %.1f = %.3f\n",num1, op.getLabel() ,num2, res);
@@ -68,23 +69,24 @@ public class App {
                 }
             }
 
-            System.out.println("검색 ? ( Y / N )");
+            System.out.println("검색기능을 사용하시겠습니까? ( Y / N )");
             yn = sc.next().charAt(0);
             if((yn == 'Y' || yn == 'y')){
-                input = sc.nextLine();
+                System.out.print("어떤 수보다 큰 결과를 원하시나요? : ");
+                input = sc.next();
                 while(!v.isNumber(input)) {
                     System.out.print("숫자를 입력해주세요 : ");
-                    input = sc.nextLine();
+                    input = sc.next();
                 }
                 double search = Double.parseDouble(input);
                 List<Double> list = calc.search(search);
                 if(list.isEmpty()) {
-                    System.out.println(search + "보다 큰 계산 결과가 없습니다.");
+                    System.out.println(input + "보다 큰 계산 결과가 없습니다.");
                 }else System.out.println(list);
             }
 
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
-            more = sc.nextLine();
+            more = sc.next();
         }
 
     }
