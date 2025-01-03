@@ -15,9 +15,9 @@ public  class ArithmeticCalculator<T extends Number> {
         results = new LinkedList<T>();
     }
     //사칙연산을 수행한 후, 결과값을 반환하는 메서드 구현
-    public T calculate(T num1, T num2){
+    public T calculate(T num1, T num2) throws Exception {
         if(operation == null){
-            throw new RuntimeException("Operation is null");
+            throw new NullPointerException("Operation is null");
         }
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
         return (T) Double.valueOf(operation.calculate(num1.doubleValue(), num2.doubleValue()));
