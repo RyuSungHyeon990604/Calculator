@@ -16,6 +16,9 @@ public  class ArithmeticCalculator<T extends Number> {
     }
     //사칙연산을 수행한 후, 결과값을 반환하는 메서드 구현
     public T calculate(T num1, T num2){
+        if(operation == null){
+            throw new RuntimeException("Operation is null");
+        }
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
         return (T) Double.valueOf(operation.calculate(num1.doubleValue(), num2.doubleValue()));
     }
@@ -34,8 +37,8 @@ public  class ArithmeticCalculator<T extends Number> {
         results.add(res);
     }
     //간접 접근을 통해 필드에 접근하여 수정할 수 있도록 구현합니다
-    public void remove(){
-        results.remove();
+    public T remove(){
+        return results.remove();
     }
     public List<T> search(T num) {
         return results.stream().filter(a -> num.doubleValue() < a.doubleValue()).toList();
