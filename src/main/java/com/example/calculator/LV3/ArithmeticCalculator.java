@@ -19,9 +19,9 @@ public  class ArithmeticCalculator<T extends Number> {
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
         return (T) Double.valueOf(operation.calculate(num1.doubleValue(), num2.doubleValue()));
     }
-    //operation
-    public void setOperation(OperatorType op) {
-        this.operation = op.getOperation();
+    //OperatorType의 operation으로 set
+    public void setOperation(Operation op) {
+        this.operation = op;
     }
 
     //간접 접근을 통해 필드에 접근하여 가져올 수 있도록 구현합니다
