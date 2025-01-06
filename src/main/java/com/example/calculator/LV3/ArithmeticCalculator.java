@@ -1,6 +1,7 @@
 package com.example.calculator.LV3;
 
 
+import com.example.calculator.LV3.exception.UnsupportedTypeException;
 import com.example.calculator.LV3.operation.Operation;
 
 import java.util.LinkedList;
@@ -11,8 +12,10 @@ public  class ArithmeticCalculator<T extends Number> {
     //App 클래스의 main 메서드에서 Calculator 클래스의 연산 결과를 저장하고 있는 컬렉션 필드에 직접 접근하지 못하도록 수정 (캡슐화)
     private Queue<T> results = null;
     private Operation operation = null;
-    public ArithmeticCalculator() {
+    private Class<T> type = null;
+    public ArithmeticCalculator(Class<T> type) {
         results = new LinkedList<T>();
+        this.type = type;
     }
     //사칙연산을 수행한 후, 결과값을 반환하는 메서드 구현
     public T calculate(T num1, T num2) throws Exception {
@@ -25,11 +28,22 @@ public  class ArithmeticCalculator<T extends Number> {
         return res;
     }
 
-    //구현중
-    private T castToT(double result){
-        T t = null;
-
-        return t;
+    //T 타입으로 캐스팅
+    private T castToT(double result) throws UnsupportedTypeException {
+        if (type == Double.class) {
+            return type.cast(result);
+        } else if (type == Integer.class) {
+            return type.cast((int) result);
+        } else if (type == Long.class) {
+            return type.cast((long) result);
+        } else if (type == Float.class) {
+            return type.cast((float) result);
+        } else if (type == Short.class) {
+            return type.cast((short) result);
+        } else if (type == Byte.class) {
+            return type.cast((byte) result);
+        }
+        throw new UnsupportedTypeException();
     }
     //OperatorType의 operation으로 set
     public void setOperation(Operation op) {

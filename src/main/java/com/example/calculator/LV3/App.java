@@ -9,13 +9,9 @@ import java.util.Scanner;
 
 //Lv 1에서 구현한 App 클래스의 main 메서드에 Calculator 클래스가 활용될 수 있도록 수정
 public class App {
-    private Scanner sc;
+    private Scanner sc = new Scanner(System.in);
     private OperatorType op = null;
-    public ArithmeticCalculator<Double> calc;
-    public App(){
-        sc = new Scanner(System.in);
-        calc = new ArithmeticCalculator<>();
-    }
+    public ArithmeticCalculator<Double> calc =  new ArithmeticCalculator<>(Double.class);
     public void run(){
         double num1 =0 ,num2 = 0;
         //숫자 입력받기
@@ -34,7 +30,6 @@ public class App {
             System.out.println(e.getMessage());
             return;
         }
-
         //계산 결과가 비어있다면
         if(calc.isEmpty()) {
             System.out.println("저장된 결과가 없습니다.");
