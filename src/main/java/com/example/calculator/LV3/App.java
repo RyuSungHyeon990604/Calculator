@@ -11,17 +11,16 @@ import java.util.Scanner;
 public class App {
     private Scanner sc;
     private OperatorType op = null;
-    private ArithmeticCalculator<Double> calc;
+    public ArithmeticCalculator<Double> calc;
     public App(){
         sc = new Scanner(System.in);
         calc = new ArithmeticCalculator<>();
     }
     public void run(){
         double num1 =0 ,num2 = 0;
-        double res=0.0;
         //숫자 입력받기
-        num1 = getInput("첫 번째 숫자를 입력하세요 : ");
-        num2 = getInput("두 번째 숫자를 입력하세요 : ");
+        num1 = getInputNumber("첫 번째 숫자를 입력하세요");
+        num2 = getInputNumber("두 번째 숫자를 입력하세요");
 
         try{
             //사칙연산 기호(➕,➖,✖️,➗)를 입력받기
@@ -29,62 +28,68 @@ public class App {
             op = OperatorType.getOperatorType(sc.next().charAt(0));
             //set operation
             calc.setOperation(op.getOperation());
-            res = calc.calculate(num1,num2);
-            System.out.printf("%.1f %c %.1f = %.5f\n",num1, op.getLabel() ,num2, round(res, 5));
+            printExpression(num1,num2,op,calc.calculate(num1,num2));
         }catch (Exception e) {
             //연산 오류가 발생할 경우 해당 오류에 대한 내용을 정제하여 출력합니다.
             System.out.println(e.getMessage());
             return;
         }
 
+        //계산 결과가 비어있다면
         if(calc.isEmpty()) {
             System.out.println("저장된 결과가 없습니다.");
         }else{
             Queue<Double> results = calc.getResults();
+            System.out.print("저장된 결과들 : ");
             printCollection(results);
 
             if(yn("\n가장 먼저 계산된 결과를 삭제하시겠습니까? ( Y / N )","y")){
                 Double remove = calc.remove();
-                System.out.println(new BigDecimal(remove).setScale(3,RoundingMode.HALF_UP)+" 을 삭제했습니다.");
+                System.out.println(remove+" 을 삭제했습니다.");
             }
 
-            results = calc.getResults();
             if(results.isEmpty()) {
                 System.out.println("저장된 결과가 없습니다.");
             }else{
+                System.out.print("저장된 결과들 : ");
                 printCollection(results);
             }
         }
 
+        //계산 결과가 존재한다면
         if(!calc.isEmpty()) {
             if(yn("\n검색기능을 사용하시겠습니까? ( Y / N )","y")){
-                double search = getInput("어떤 수보다 큰 결과를 원하시나요? : ");
-                List<Double> list = calc.search(search);
+                double num = getInputNumber("어떤 수보다 큰 결과를 원하시나요?");
+                List<Double> list = calc.getListBiggerThanNum(num);
                 if(list.isEmpty()) {
-                    System.out.println("\n"+ search + "보다 큰 계산 결과가 없습니다.");
+                    System.out.println("\n"+ num + "보다 큰 계산 결과가 없습니다.");
                 }else {
-                    System.out.println(search +"보다 큰 계산 결과입니다 : ");
+                    System.out.println(num +"보다 큰 계산 결과입니다 : ");
                     printCollection(list);
                 }
             }
         }
     }
-    private double getInput(String str) {
+    //str을 출력하면서 입력을 받는다
+    private double getInputNumber(String str) {
         System.out.print(str);
+        System.out.print(" : ");
         String input = sc.next();
         while(!isNumber(input)) {
-            System.out.print("숫자를 입력해주세요 : ");
+            System.out.print("(숫자를 입력해주세요)" + str);
+            System.out.print(" : ");
             input = sc.next();
         }
         return Double.parseDouble(input);
     }
-    private boolean yn(String str,String ifTrue) {
+    //str을 출력하고 입력받은 문자가 ifTrue라면 true반환
+    private boolean yn(String str,String isTrue) {
         System.out.println(str);
         String input = sc.next().toLowerCase();
-        return input.equals(ifTrue);
+        return input.equals(isTrue);
     }
 
-    public boolean isNumber(String input) {
+    private boolean isNumber(String input) {
         try{
             Double.parseDouble(input);
             return true;
@@ -93,7 +98,16 @@ public class App {
         }
     }
 
-    public void printCollection(Collection<? extends Number> obj) {
+    //식 출력
+    private void printExpression(double num1,double num2,OperatorType op,double result) {
+        System.out.printf("%s %s %s = %f\n",numberFormat(num1),op.getLabel(),numberFormat(num2),result);
+    }
+    private String numberFormat(double num){
+        return num >= 0 ? String.valueOf(num) :  "(" + num + ")";
+    }
+
+    //number collection 출력
+    private void printCollection(Collection<? extends Number> obj) {
         if(obj == null){
             System.out.println("obj is null");
             return;
@@ -102,16 +116,9 @@ public class App {
             System.out.println("obj is empty");
             return;
         }
-        for (Number o : obj) {
-            System.out.print(round(o.doubleValue(),5)+" ");
-        }
+        System.out.println(obj);
     }
 
-    public BigDecimal round(double value, int places) {
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd;
-    }
 
     public static void main(String[] args) {
         App app  =new App();
@@ -121,5 +128,6 @@ public class App {
             System.out.println("\n더 계산하시겠습니까? (exit 입력 시 종료)");
         }while(!sc.next().equals("exit"));
         System.out.println("계산기를 종료합니다.");
+
     }
 }

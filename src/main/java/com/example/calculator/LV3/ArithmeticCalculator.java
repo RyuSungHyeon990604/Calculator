@@ -20,9 +20,16 @@ public  class ArithmeticCalculator<T extends Number> {
             throw new NullPointerException("Operation is null");
         }
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
-        T res = (T) Double.valueOf(operation.calculate(num1.doubleValue(), num2.doubleValue()));
+        T res = castToT(operation.calculate(num1.doubleValue(), num2.doubleValue()));
         saveResults(res);
         return res;
+    }
+
+    //구현중
+    private T castToT(double result){
+        T t = null;
+
+        return t;
     }
     //OperatorType의 operation으로 set
     public void setOperation(Operation op) {
@@ -35,18 +42,19 @@ public  class ArithmeticCalculator<T extends Number> {
     }
 
     //간접 접근을 통해 필드에 접근하여 수정할 수 있도록 구현합니다
-    public void saveResults(T res) {
+    private void saveResults(T res) {
         results.add(res);
     }
+
     //간접 접근을 통해 필드에 접근하여 수정할 수 있도록 구현합니다
     public T remove(){
         return results.remove();
     }
-
+    //계산 결과가 비어있는지 확인
     public boolean isEmpty(){
         return results.isEmpty();
     }
-    public List<T> search(T num) {
+    public List<T> getListBiggerThanNum(T num) {
         return results.stream().filter(a -> num.doubleValue() < a.doubleValue()).toList();
     }
 }
