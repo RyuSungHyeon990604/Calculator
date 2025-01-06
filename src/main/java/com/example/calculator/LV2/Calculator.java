@@ -32,6 +32,7 @@ public class Calculator {
             default:
                 throw new RuntimeException("올바른 기호를 입력해주세요.");
         }
+        saveResults(res);
         return res;
     }
 

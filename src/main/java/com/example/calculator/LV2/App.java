@@ -40,13 +40,6 @@ public class App {
                 continue;
             }
 
-            System.out.println("결과를 저장하시겠습니까? ( Y / N )");
-            yn = sc.next().charAt(0);
-            if(yn == 'y' || yn == 'Y') {
-                calc.saveResults(res);
-            }
-
-
             if(!calc.getResults().isEmpty()) {
                 System.out.println("가장 오래된 결과를 삭제하시겠습니까? ( Y / N )");
                 System.out.println(calc.getResults());

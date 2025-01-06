@@ -37,17 +37,13 @@ public class App {
             return;
         }
 
-        if(yn("결과를 저장하시겠습니까? ( Y / N )","y")) {
-            calc.saveResults(res);
-        }
-
-        Queue<Double> results = calc.getResults();
-        if(results.isEmpty()) {
+        if(calc.isEmpty()) {
             System.out.println("저장된 결과가 없습니다.");
         }else{
+            Queue<Double> results = calc.getResults();
             printCollection(results);
 
-            if(yn("\n가장 오래된 결과를 삭제하시겠습니까? ( Y / N )","y")){
+            if(yn("\n가장 먼저 계산된 결과를 삭제하시겠습니까? ( Y / N )","y")){
                 Double remove = calc.remove();
                 System.out.println(new BigDecimal(remove).setScale(3,RoundingMode.HALF_UP)+" 을 삭제했습니다.");
             }
@@ -60,13 +56,14 @@ public class App {
             }
         }
 
-        if(!results.isEmpty()) {
+        if(!calc.isEmpty()) {
             if(yn("\n검색기능을 사용하시겠습니까? ( Y / N )","y")){
                 double search = getInput("어떤 수보다 큰 결과를 원하시나요? : ");
                 List<Double> list = calc.search(search);
                 if(list.isEmpty()) {
                     System.out.println("\n"+ search + "보다 큰 계산 결과가 없습니다.");
                 }else {
+                    System.out.println(search +"보다 큰 계산 결과입니다 : ");
                     printCollection(list);
                 }
             }
@@ -76,7 +73,7 @@ public class App {
         System.out.print(str);
         String input = sc.next();
         while(!isNumber(input)) {
-            System.out.print("숫자를 입력해주세요");
+            System.out.print("숫자를 입력해주세요 : ");
             input = sc.next();
         }
         return Double.parseDouble(input);
@@ -96,7 +93,7 @@ public class App {
         }
     }
 
-    public void printCollection(Collection<?> obj) {
+    public void printCollection(Collection<? extends Number> obj) {
         if(obj == null){
             System.out.println("obj is null");
             return;
@@ -105,11 +102,8 @@ public class App {
             System.out.println("obj is empty");
             return;
         }
-        for (Object o : obj) {
-            if(o instanceof Number) {
-                System.out.print(round((double)o,5)+" ");
-            }else
-                System.out.println(o+" ");
+        for (Number o : obj) {
+            System.out.print(round(o.doubleValue(),5)+" ");
         }
     }
 
@@ -124,7 +118,7 @@ public class App {
         Scanner sc = new Scanner(System.in);
         do{
             app.run();
-            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+            System.out.println("\n더 계산하시겠습니까? (exit 입력 시 종료)");
         }while(!sc.next().equals("exit"));
         System.out.println("계산기를 종료합니다.");
     }
