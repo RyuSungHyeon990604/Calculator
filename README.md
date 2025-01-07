@@ -26,7 +26,7 @@
 
 ## 프로그램 구성
 
-### `App` 클래스[🔗](./src/com/example/calculator/LV3/App.java)
+### `App` 클래스[🔗](./src/main/java/com/example/calculator/LV3/App.java)
 
 - 프로그램의 진입점(Main) 역할을 하며, 사용자와 상호작용합니다.
 - 주요 역할:
@@ -34,7 +34,7 @@
   - 계산 수행 및 결과 출력
   - 저장된 결과 확인, 삭제, 검색 기능 제공
 
-### `ArithmeticCalculator<T>` 클래스[🔗](./src/com/example/calculator/LV3/ArithmeticCalculator.java)
+### `ArithmeticCalculator<T>` 클래스[🔗](./src/main/java/com/example/calculator/LV3/ArithmeticCalculator.java)
 
 - 사칙연산 계산의 핵심 로직을 담당하는 제네릭 클래스입니다.
 - 주요 역할:
@@ -42,7 +42,7 @@
   - 계산 결과를 큐(Queue)에 저장 및 관리
   - 특정 조건에 맞는 결과 필터링
 
-### `OperatorType` 열거형(Enum) [🔗](./src/com/example/calculator/LV3/OperatorType.java)
+### `OperatorType` 열거형(Enum) [🔗](./src/main/java/com/example/calculator/LV3/OperatorType.java)
 
 - 사칙연산(더하기, 빼기, 곱하기, 나누기)을 정의하며, 각 연산자와 연산 로직을 매핑합니다.
 - 잘못된 연산자를 입력할 경우 사용자에게 예외 메시지를 반환합니다.
