@@ -10,12 +10,11 @@ import java.util.Queue;
 
 public class ArithmeticCalculator<T extends Number> {
     //App 클래스의 main 메서드에서 Calculator 클래스의 연산 결과를 저장하고 있는 컬렉션 필드에 직접 접근하지 못하도록 수정 (캡슐화)
-    private Queue<T> results = null;
+    private final Queue<T> results = new LinkedList<>();
+    private final Class<T> type;
     private Operation operation = null;
-    private Class<T> type = null;
 
     public ArithmeticCalculator(Class<T> type) {
-        results = new LinkedList<T>();
         this.type = type;
     }
 
