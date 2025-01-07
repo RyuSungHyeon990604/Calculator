@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum OperatorType {
-    ADD('+', (a,b)->a+b),
-    SUB('-', (a,b)->a-b),
-    MULTI('*', (a, b) -> a*b),
-    DIV('/', (a,b)->{
-        if(b==0){
+    ADD('+', (a, b) -> a + b),
+    SUB('-', (a, b) -> a - b),
+    MULTI('*', (a, b) -> a * b),
+    DIV('/', (a, b) -> {
+        if (b == 0) {
             throw new DivideByZeroException();
         }
-        return a/b;
-    }),;
+        return a / b;
+    });
 
     private final char label;
     private final Operation operation;
@@ -36,7 +36,7 @@ public enum OperatorType {
         return label;
     }
 
-    public Operation getOperation(){
+    public Operation getOperation() {
         return operation;
     }
 
