@@ -39,13 +39,71 @@
 - 사칙연산 계산의 핵심 로직을 담당하는 제네릭 클래스입니다.
 - 주요 역할:
   - 입력된 숫자와 연산자를 기반으로 계산 수행
+  - 제네릭 클래스로 구현하여 모든 Number 타입에대해서 계산수행
+```java
+ArithmeticCalculator<Integer> calc1 = new ArithmeticCalculator<>(Integer.class);
+ArithmeticCalculator<Long> calc2 = new ArithmeticCalculator<>(Long.class);
+ArithmeticCalculator<Float> calc3 = new ArithmeticCalculator<>(Float.class);
+ArithmeticCalculator<Double> calc4 = new ArithmeticCalculator<>(Double.class);
+ArithmeticCalculator<Short> calc5 = new ArithmeticCalculator<>(Short.class);
+ArithmeticCalculator<Byte> calc6 = new ArithmeticCalculator<>(Byte.class);
+/*
+setOperation..
+*/
+int calculate = calc1.calculate(1, 2);
+System.out.println("calculate = " + calculate);
+long calculate1 = calc2.calculate(1L, 2L);
+System.out.println("calculate1 = " + calculate1);
+float calculate2 = calc3.calculate(1F, 2F);
+System.out.println("calculate2 = " + calculate2);
+double calculate3 = calc4.calculate(1D, 2D);
+System.out.println("calculate3 = " + calculate3);
+short calculate4 = calc5.calculate((short) 1, (short) 2);
+System.out.println("calculate4 = " + calculate4);
+byte  calculate5 = calc6.calculate((byte) 1, (byte) 2);
+System.out.println("calculate5 = " + calculate5);
+```
+```
+calculate = 3
+calculate1 = 3
+calculate2 = 3.0
+calculate3 = 3.0
+calculate4 = 3
+calculate5 = 3
+```
   - 계산 결과를 큐(Queue)에 저장 및 관리
   - 특정 조건에 맞는 결과 필터링
+  
 
 ### `OperatorType` 열거형(Enum) [🔗](./src/main/java/com/example/calculator/LV3/OperatorType.java)
 
 - 사칙연산(더하기, 빼기, 곱하기, 나누기)을 정의하며, 각 연산자와 연산 로직을 매핑합니다.
+```java
+public enum OperatorType {
+    ADD('+', (a, b) -> a + b),
+    SUB('-', (a, b) -> a - b),
+    MULTI('*', (a, b) -> a * b),
+    DIV('/', (a, b) -> {
+        if (b == 0) {
+            throw new DivideByZeroException();
+        }
+        return a / b;
+    });
+
+    private final char label;
+    private final Operation operation;
+    ...
+}
+```
 - 잘못된 연산자를 입력할 경우 사용자에게 예외 메시지를 반환합니다.
+```java
+public static OperatorType getOperatorType(char op) {
+  OperatorType res = OPERATOR_MAP.get(op);
+  if (res == null)
+      throw new IllegalArgumentException("올바른 연산자를 입력해주세요 : " + op);
+  return res;
+}
+```
 
 ## 사용 방법
 
