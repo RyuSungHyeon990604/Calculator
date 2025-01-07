@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 //Lv 1에서 구현한 App 클래스의 main 메서드에 Calculator 클래스가 활용될 수 있도록 수정
 public class App {
-    private Scanner sc = new Scanner(System.in);
-    private OperatorType op = null;
-    public ArithmeticCalculator<Double> calc = new ArithmeticCalculator<>(Double.class);
+
+    private final Scanner sc = new Scanner(System.in);
+    private final ArithmeticCalculator<Double> calc = new ArithmeticCalculator<>(Double.class);
 
     public void run() {
         //숫자 입력받기
@@ -21,10 +21,10 @@ public class App {
         try {
             //사칙연산 기호(➕,➖,✖️,➗)를 입력받기
             System.out.print("사칙연산 기호(+,-,*,/)를 입력 해주세요. : ");
-            op = OperatorType.getOperatorType(sc.next().charAt(0));
+            OperatorType inputOperation = OperatorType.getOperatorType(sc.next().charAt(0));
             //set operation
-            calc.setOperation(op.getOperation());
-            printExpression(num1, num2, op, calc.calculate(num1, num2));
+            calc.setOperation(inputOperation.getOperation());
+            printExpression(num1, num2, inputOperation, calc.calculate(num1, num2));
         } catch (Exception e) {
             //연산 오류가 발생할 경우 해당 오류에 대한 내용을 정제하여 출력합니다.
             System.out.println(e.getMessage());
@@ -59,7 +59,7 @@ public class App {
                 if (list.isEmpty()) {
                     System.out.println("\n" + num + "보다 큰 계산 결과가 없습니다.");
                 } else {
-                    System.out.println(num + "보다 큰 계산 결과입니다 : ");
+                    System.out.print(num + "보다 큰 계산 결과입니다 : ");
                     printCollection(list);
                 }
             }
@@ -81,7 +81,8 @@ public class App {
 
     //str을 출력하고 입력받은 문자가 ifTrue라면 true반환
     private boolean yn(String str, String isTrue) {
-        System.out.println(str);
+        System.out.print(str);
+        System.out.print(" : ");
         String input = sc.next().toLowerCase();
         return input.equals(isTrue);
     }
@@ -116,16 +117,16 @@ public class App {
         }
         System.out.println(obj);
     }
-
-
-    public static void main(String[] args) {
-        App app = new App();
-        Scanner sc = new Scanner(System.in);
+    public void runContinuous() {
         do {
-            app.run();
+            run();
             System.out.println("\n더 계산하시겠습니까? (exit 입력 시 종료)");
         } while (!sc.next().equals("exit"));
         System.out.println("계산기를 종료합니다.");
+    }
 
+    public static void main(String[] args) {
+        App app = new App();
+        app.runContinuous();
     }
 }
