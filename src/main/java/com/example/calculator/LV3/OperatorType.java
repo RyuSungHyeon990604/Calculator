@@ -1,15 +1,21 @@
 package com.example.calculator.LV3;
 
+import com.example.calculator.LV3.exception.DivideByZeroException;
 import com.example.calculator.LV3.operation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum OperatorType {
-    ADD('+', new AddOperation()),
-    SUB('-', new SubOperation()),
-    MULTI('*', new MultiOperation()),
-    DIV('/', new DivOperation());
+    ADD('+', (a,b)->a+b),
+    SUB('-', (a,b)->a-b),
+    MULTI('*', (a, b) -> a*b),
+    DIV('/', (a,b)->{
+        if(b==0){
+            throw new DivideByZeroException();
+        }
+        return a/b;
+    }),;
 
     private final char label;
     private final Operation operation;
