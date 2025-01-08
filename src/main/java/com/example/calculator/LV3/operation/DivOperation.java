@@ -4,10 +4,10 @@ import com.example.calculator.LV3.exception.DivideByZeroException;
 
 public class DivOperation implements Operation{
     @Override
-    public double calculate(double a, double b) throws DivideByZeroException {
-        if(b == 0){
+    public double calculate(Number a, Number b) throws DivideByZeroException {
+        if(b.doubleValue() == 0){
             throw new DivideByZeroException();
         }
-        return a / b;
+        return a.doubleValue() / b.doubleValue();
     }
 }

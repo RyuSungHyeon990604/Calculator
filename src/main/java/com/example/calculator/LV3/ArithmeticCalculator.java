@@ -24,7 +24,7 @@ public class ArithmeticCalculator<T extends Number> {
             throw new NullPointerException("Operation is null");
         }
         // double 형식의 값을 구한 뒤  T 타입으로 캐스팅
-        T res = castToT(operation.calculate(num1.doubleValue(), num2.doubleValue()));
+        T res = castToT(operation.calculate(num1, num2));
         saveResult(res);
         return res;
     }

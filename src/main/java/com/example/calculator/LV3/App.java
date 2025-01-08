@@ -1,6 +1,7 @@
 package com.example.calculator.LV3;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
@@ -80,11 +81,16 @@ public class App {
     }
 
     //str을 출력하고 입력받은 문자가 ifTrue라면 true반환
-    private boolean yn(String str, String isTrue) {
+    private boolean yn(String str, String... isTrue) {
         System.out.print(str);
         System.out.print(" : ");
         String input = sc.next().toLowerCase();
-        return input.equals(isTrue);
+        for (String s : isTrue) {
+            if (!input.equals(s)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isNumber(String input) {
@@ -121,7 +127,7 @@ public class App {
         do {
             run();
             System.out.println("\n더 계산하시겠습니까? (exit 입력 시 종료)");
-        } while (!sc.next().equals("exit"));
+        } while (!sc.next().toLowerCase().equals("exit"));
         System.out.println("계산기를 종료합니다.");
     }
 
