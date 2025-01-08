@@ -1,8 +1,6 @@
 package com.example.calculator.LV3;
 
-import com.example.calculator.LV3.exception.DivideByZeroException;
 import com.example.calculator.LV3.operation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +12,7 @@ public enum OperatorType {
 
     private final char label;
     private final Operation operation;
-    private static final Map<Character, OperatorType> OPERATOR_MAP = new HashMap<>();
+    private static final Map<Character, OperatorType> operatorTypeMap = new HashMap<>();
 
     OperatorType(char op, Operation operation) {
         this.label = op;
@@ -23,7 +21,7 @@ public enum OperatorType {
 
     static {
         for (OperatorType op : OperatorType.values()) {
-            OPERATOR_MAP.put(op.label, op);
+            operatorTypeMap.put(op.label, op);
         }
     }
 
@@ -36,7 +34,7 @@ public enum OperatorType {
     }
 
     public static OperatorType getOperatorType(char op) {
-        OperatorType res = OPERATOR_MAP.get(op);
+        OperatorType res = operatorTypeMap.get(op);
         if (res == null)
             throw new IllegalArgumentException("올바른 연산자를 입력해주세요 : " + op);
         return res;

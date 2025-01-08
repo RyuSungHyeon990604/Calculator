@@ -81,16 +81,14 @@ public class App {
     }
 
     //str을 출력하고 입력받은 문자가 ifTrue라면 true반환
-    private boolean yn(String str, String... isTrue) {
+    private boolean yn(String str, String isTrue) {
         System.out.print(str);
         System.out.print(" : ");
         String input = sc.next().toLowerCase();
-        for (String s : isTrue) {
-            if (!input.equals(s)) {
-                return false;
-            }
+        if (input.equals(isTrue.toLowerCase())) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     private boolean isNumber(String input) {
