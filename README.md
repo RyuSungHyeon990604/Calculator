@@ -80,15 +80,10 @@ calculate5 = 3
 - 사칙연산(더하기, 빼기, 곱하기, 나누기)을 정의하며, 각 연산자와 연산 로직을 매핑합니다.
 ```java
 public enum OperatorType {
-    ADD('+', (a, b) -> a + b),
-    SUB('-', (a, b) -> a - b),
-    MULTI('*', (a, b) -> a * b),
-    DIV('/', (a, b) -> {
-        if (b == 0) {
-            throw new DivideByZeroException();
-        }
-        return a / b;
-    });
+    ADD('+', new AddOperation()),
+    SUB('-', new SubOperation()),
+    MULTI('*', new MultiOperation()),
+    DIV('/', new DivOperation()),;
 
     private final char label;
     private final Operation operation;
