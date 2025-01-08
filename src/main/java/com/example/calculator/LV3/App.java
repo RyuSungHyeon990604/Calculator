@@ -1,8 +1,5 @@
 package com.example.calculator.LV3;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
@@ -85,10 +82,7 @@ public class App {
         System.out.print(str);
         System.out.print(" : ");
         String input = sc.next().toLowerCase();
-        if (input.equals(isTrue.toLowerCase())) {
-            return true;
-        }
-        return false;
+        return input.equals(isTrue.toLowerCase());
     }
 
     private boolean isNumber(String input) {
